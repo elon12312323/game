@@ -1,6 +1,7 @@
 const eggContainer = document.getElementById('eggContainer');
 const scoreDisplay = document.getElementById('score');
 const startButton = document.getElementById('startButton');
+const startMessage = document.getElementById('startMessage');
 const endModal = document.getElementById('endModal');
 const finalScore = document.getElementById('finalScore');
 const eggTypes = [{color: 'yellow', points: 1, probability: 80}, {color: 'gold', points: 10, probability: 10}, {color: 'black', points: -5, probability: 10}];
@@ -11,7 +12,7 @@ function startGame() {
     startButton.disabled = true;
     score = 0;
     scoreDisplay.innerText = '점수: ' + score;
-    gameTimer = setTimeout(endGame, 6000); // 1분 타이머
+    gameTimer = setTimeout(endGame, 60000); // 1분 타이머
     spawnEgg();
 }
 
@@ -116,9 +117,6 @@ function endGame() {
 }
 
 
-
-
-
 // 게임 종료 모달 닫기
 endModal.onclick = function(event) {
     if (event.target == endModal) {
@@ -126,4 +124,12 @@ endModal.onclick = function(event) {
     }
 };
 
-startButton.addEventListener('click', startGame);
+
+
+// 시작 버튼 클릭 이벤트 핸들러 추가
+startButton.addEventListener('click', () => {
+    // 시작 메시지 숨기기
+    startMessage.style.display = 'none';
+    // 게임 시작 함수 호출
+    startGame();
+});
