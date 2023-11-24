@@ -130,10 +130,7 @@ body {
     align-items: center; /* 수직 중앙 정렬 */
     justify-content: center; /* 수평 중앙 정렬 */
     gap: 20px; /* 시작 버튼과 점수 사이의 간격 */
-}
-
-#startButton, #score {
-    margin: 0; /* 기존 마진 제거 (필요한 경우) */
+    margin-bottom: 20px;
 }
 
 @keyframes hitAnimation {
