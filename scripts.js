@@ -132,6 +132,12 @@ function endGame() {
 function realEndGame(){
     const nickname = window.prompt("닉네임을 입력해주세요")
 
+    // 닉네임이 빈 문자열인 경우 처리
+    if (nickname === null || nickname.trim() === "") {
+        alert("닉네임을 입력해주세요.");
+        return; // 게임 종료 함수를 빠져나감
+    }
+
     updateRanking(score, nickname);
     endModal.style.display = 'none';
 }
