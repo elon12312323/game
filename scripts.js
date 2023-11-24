@@ -5,6 +5,7 @@ const startMessage = document.getElementById('startMessage');
 const timerDisplay = document.getElementById('timer');
 const endModal = document.getElementById('endModal');
 const finalScore = document.getElementById('finalScore');
+const realEndGameButton = document.getElementById('realEndGame')
 const eggTypes = [{color: 'yellow', points: 1, probability: 80}, {color: 'gold', points: 10, probability: 10}, {color: 'black', points: -5, probability: 10}];
 
 let score = 0;
@@ -79,12 +80,15 @@ function getRandomEggType() {
 }
 
 // 랭킹 업데이트 및 저장
-function updateRanking(newScore) {
-    let ranking = getRanking();
-    ranking.push(newScore);
-    ranking.sort((a, b) => b - a);
-    ranking = ranking.slice(0, 10);
-    saveRanking(ranking);
+function updateRanking(newScore, nickname) {
+    const ranking = getRanking();
+    const newRanking = {
+        score: newScore,
+        nickname: nickname
+    }
+    ranking.push(newRanking);
+  
+    saveRanking(newRanking);
     displayRanking();
 }
 
@@ -95,16 +99,21 @@ function getRanking() {
 
 // 로컬 스토리지에 랭킹 저장
 function saveRanking(ranking) {
-    localStorage.setItem('ranking', JSON.stringify(ranking));
+    const list = getRanking()
+    localStorage.setItem('ranking', JSON.stringify(list.concat(ranking)));
 }
 
 // 랭킹 표시
 function displayRanking() {
     const rankingList = document.getElementById('rankingList');
     rankingList.innerHTML = '';
-    getRanking().forEach((score, index) => {
+
+    const savedData = getRanking().sort((a, b) => b.score - a.score).slice(0, 10);
+    
+
+    savedData.forEach((data) => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${score}점`;
+        listItem.textContent = `${data.nickname ?? "Unknown"} : ${data.score}점`;
         rankingList.appendChild(listItem);
     });
 }
@@ -117,9 +126,15 @@ function endGame() {
     startButton.disabled = false;
     eggContainer.innerHTML = ''; // 계란 삭제
 
-    updateRanking(score);
+   
 }
 
+function realEndGame(){
+    const nickname = window.prompt("닉네임을 입력해주세요")
+
+    updateRanking(score, nickname);
+    endModal.style.display = 'none';
+}
 
 // 타이머 시작 함수
 function startTimer() {
@@ -160,3 +175,9 @@ startButton.addEventListener('click', () => {
     // 게임 시작 함수 호출
     startGame();
 });
+
+realEndGameButton.onclick = function(){
+    realEndGame()
+}
+
+displayRanking()
