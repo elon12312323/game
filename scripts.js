@@ -2,11 +2,15 @@ const eggContainer = document.getElementById('eggContainer');
 const scoreDisplay = document.getElementById('score');
 const startButton = document.getElementById('startButton');
 const startMessage = document.getElementById('startMessage');
+const timerDisplay = document.getElementById('timer');
 const endModal = document.getElementById('endModal');
 const finalScore = document.getElementById('finalScore');
 const eggTypes = [{color: 'yellow', points: 1, probability: 80}, {color: 'gold', points: 10, probability: 10}, {color: 'black', points: -5, probability: 10}];
+
 let score = 0;
 let gameTimer;
+let timerSeconds = 60;
+let timerInterval;
 
 function startGame() {
     startButton.disabled = true;
@@ -117,6 +121,27 @@ function endGame() {
 }
 
 
+// 타이머 시작 함수
+function startTimer() {
+    timerInterval = setInterval(() => {
+        // 초를 분:초 형식으로 표시
+        const minutes = Math.floor(timerSeconds / 60);
+        const seconds = timerSeconds % 60;
+        timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        // 1초씩 감소
+        timerSeconds--;
+
+        // 타이머가 0초 이하로 내려가면 게임 종료
+        if (timerSeconds < 0) {
+            clearInterval(timerInterval);
+            timerDisplay.textContent = '0:00';
+            endGame();
+        }
+    }, 1000); // 1초마다 업데이트
+}
+
+
 // 게임 종료 모달 닫기
 endModal.onclick = function(event) {
     if (event.target == endModal) {
@@ -130,6 +155,8 @@ endModal.onclick = function(event) {
 startButton.addEventListener('click', () => {
     // 시작 메시지 숨기기
     startMessage.style.display = 'none';
+    // 타이머 시작
+    startTimer();
     // 게임 시작 함수 호출
     startGame();
 });

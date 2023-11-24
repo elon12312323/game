@@ -144,3 +144,16 @@ body {
     font-weight: bold;
     animation: hitAnimation 0.5s ease-out;
 }
+
+/* 타이머 스타일 */
+#timer {
+    position: absolute;
+    left: 40px; /* 좌측 여백 늘림 */
+    top: 20px;
+    font-size: 32px; /* 크기 증가 */
+    color: #FF6B6B; /* 아름다운 색상 (예: 빨간색) */
+    background-color: rgba(205, 205, 205, 0.7);
+    padding: 10px 20px; /* 패딩 조정 */
+    border-radius: 10px; /* 둥근 테두리 */
+}
+
