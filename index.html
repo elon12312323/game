@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>모아라! 에그</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <h1>모아라! 에그</h1>
+    <div class="controls">
+        <button id="startButton">시작</button>
+        <div id="score">점수: 0</div>
+    </div>
+    
+    <!-- 안내 메시지 -->
+    <div id="eggContainer"></div>
+    <div id="basket">바구니</div>
+
+    <!-- 점수 획득 안내 상자 -->
+    <div class="info-box" id="scoreGuide">
+        <h2>점수 획득 안내</h2>
+        <p>노란 에그 : +1점</p>
+        <p>황금 에그 : +10점</p>
+        <p>검정 에그 : -5점</p>
+    </div>
+
+    <!-- 랭킹 상자 -->
+    <div class="info-box" id="ranking">
+        <h2>랭킹</h2>
+        <ol id="rankingList">
+            <!-- 랭킹 목록이 여기에 들어감 -->
+        </ol>
+    </div>
+
+
+    <!-- 게임 종료 모달 -->
+    <div id="endModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>게임 종료! 당신의 점수는: <span id="finalScore"></span></p>
+        </div>
+    </div>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>
